@@ -60,3 +60,7 @@ group :development do
   # gem "spring"
 end
 
+gem 'devise'
+gem 'friendly_id'
+gem 'bootstrap'
+gem 'sassc-rails'

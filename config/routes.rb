@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  resources :portfolios, except: [:show]
+  get 'angular-items', to: 'portfolios#angular'
+  get 'portfolio/:id', to: 'portfolios#show', as: 'portfolio_show'
+
+  get 'about-me', to: 'pages#about'
+  get 'contact', to: 'pages#contact'
+
+  resources :blogs
+  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -6,5 +15,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "pages#index"
 end
