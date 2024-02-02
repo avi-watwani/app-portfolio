@@ -94,6 +94,7 @@ GEM
     debug (1.9.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    devcamp_view_tool (0.1.0)
     devise (4.9.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -253,6 +254,7 @@ DEPENDENCIES
   bootsnap
   bootstrap
   debug
+  devcamp_view_tool
   devise
   friendly_id
   importmap-rails

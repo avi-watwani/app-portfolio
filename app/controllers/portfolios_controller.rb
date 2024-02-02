@@ -1,70 +1,70 @@
 class PortfoliosController < ApplicationController
-  before_action :set_portfolio, only: %i[ show edit update destroy ]
-
-  # GET /portfolios or /portfolios.json
+  before_action :set_portfolio_item, only: [:edit, :show, :update, :destroy]
+  layout 'portfolio'
+  # access all: [:show, :index, :angular], user: {except: [:destroy, :new, :create, :update, :edit]}, site_admin: :all
+  
   def index
-    @portfolios = Portfolio.all
+    @portfolio_items = Portfolio.all
   end
 
-  # GET /portfolios/1 or /portfolios/1.json
-  def show
+  def angular
+    @angular_portfolio_items = Portfolio.angular
   end
 
-  # GET /portfolios/new
   def new
-    @portfolio = Portfolio.new
+    @portfolio_item = Portfolio.new
+    3.times { @portfolio_item.technologies.build }
   end
 
-  # GET /portfolios/1/edit
+  def create
+    @portfolio_item = Portfolio.new(portfolio_params)
+
+    respond_to do |format|
+      if @portfolio_item.save
+        format.html { redirect_to portfolios_path, notice: 'Your portfolio item is now live.' }
+      else
+        format.html { render :new }
+      end
+    end
+  end
+
   def edit
   end
 
-  # POST /portfolios or /portfolios.json
-  def create
-    @portfolio = Portfolio.new(portfolio_params)
-
-    respond_to do |format|
-      if @portfolio.save
-        format.html { redirect_to portfolio_url(@portfolio), notice: "Portfolio was successfully created." }
-        format.json { render :show, status: :created, location: @portfolio }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @portfolio.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /portfolios/1 or /portfolios/1.json
   def update
     respond_to do |format|
-      if @portfolio.update(portfolio_params)
-        format.html { redirect_to portfolio_url(@portfolio), notice: "Portfolio was successfully updated." }
-        format.json { render :show, status: :ok, location: @portfolio }
+      if @portfolio_item.update(portfolio_params)
+        format.html { redirect_to portfolios_path, notice: 'The record successfully updated.' }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @portfolio.errors, status: :unprocessable_entity }
+        format.html { render :edit }
       end
     end
   end
 
-  # DELETE /portfolios/1 or /portfolios/1.json
-  def destroy
-    @portfolio.destroy!
+  def show
+  end
 
+  def destroy
+    # Destroy/delete the record
+    @portfolio_item.destroy
+
+    # Redirect
     respond_to do |format|
-      format.html { redirect_to portfolios_url, notice: "Portfolio was successfully destroyed." }
-      format.json { head :no_content }
+      format.html { redirect_to portfolios_url, notice: 'Record was removed.' }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_portfolio
-      @portfolio = Portfolio.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def portfolio_params
-      params.fetch(:portfolio, {})
-    end
+  def portfolio_params
+    params.require(:portfolio).permit(:title,
+                                      :subtitle,
+                                      :body,
+                                      technologies_attributes: [:name]
+                                     )
+  end
+
+  def set_portfolio_item
+    @portfolio_item = Portfolio.find(params[:id])
+  end
 end

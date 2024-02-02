@@ -1,10 +1,13 @@
-<p style="color: green"><%= notice %></p>
+<%= image_tag @portfolio_item.main_image %>
 
-<%= render @portfolio %>
+<h1><%= @portfolio_item.title %></h1>
 
-<div>
-  <%= link_to "Edit this portfolio", edit_portfolio_path(@portfolio) %> |
-  <%= link_to "Back to portfolios", portfolios_path %>
+<em><%= @portfolio_item.subtitle %></em>
 
-  <%= button_to "Destroy this portfolio", @portfolio, method: :delete %>
-</div>
+<p><%= @portfolio_item.body %></p>
+
+<h2>Technologies Used:</h2>
+
+<% @portfolio_item.technologies.each do |t| %>
+<p><%= t.name %></p>
+<% end %>

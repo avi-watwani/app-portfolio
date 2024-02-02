@@ -1,14 +1,5 @@
-<p style="color: green"><%= notice %></p>
+<h1>Portfolio Items</h1>
 
-<h1>Portfolios</h1>
+<%= link_to "Create New Item", new_portfolio_url %>
 
-<div id="portfolios">
-  <% @portfolios.each do |portfolio| %>
-    <%= render portfolio %>
-    <p>
-      <%= link_to "Show this portfolio", portfolio %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New portfolio", new_portfolio_path %>
+<%= render partial: 'portfolio_item', collection: @portfolio_items %>
