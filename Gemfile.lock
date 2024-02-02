@@ -106,6 +106,8 @@ GEM
     erubi (1.12.0)
     execjs (2.9.1)
     ffi (1.16.3)
+    font-awesome-rails (4.7.0.8)
+      railties (>= 3.2, < 8.0)
     friendly_id (5.5.1)
       activerecord (>= 4.0.0)
     globalid (1.2.1)
@@ -258,6 +260,7 @@ DEPENDENCIES
   debug
   devcamp_view_tool
   devise
+  font-awesome-rails
   friendly_id
   importmap-rails
   jbuilder
